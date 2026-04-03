@@ -1,0 +1,27 @@
+{"properties": [
+  {
+    "name": "application.security.jwt.secret-key",
+    "type": "java.lang.String",
+    "description": "A description for 'application.security.jwt.secret-key'"
+  },
+  {
+    "name": "application.security.jwt.expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'application.security.jwt.expiration'"
+  },
+  {
+    "name": "application.security.jwt.refresh-expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'application.security.jwt.refresh-expiration'"
+  },
+  {
+    "name": "app.upload.dir",
+    "type": "java.lang.String",
+    "description": "A description for 'app.upload.dir'"
+  },
+  {
+    "name": "app.file.base-url",
+    "type": "java.lang.String",
+    "description": "A description for 'app.file.base-url'"
+  }
+]}
