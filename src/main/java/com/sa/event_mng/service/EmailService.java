@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 public class EmailService {
 
     private final JavaMailSender mailSender;
+    
+    @org.springframework.beans.factory.annotation.Value("${spring.mail.username}")
+    private String fromEmail;
 
     public void sendVerificationEmail(String to, String token) {
         String subject = "[Event Manager] Xác thực Email - Email Verification";
@@ -19,6 +22,7 @@ public class EmailService {
                          "Please click the link below to verify your email:\n" + verificationUrl;
 
         SimpleMailMessage email = new SimpleMailMessage();
+        email.setFrom(fromEmail);
         email.setTo(to);
         email.setSubject(subject);
         email.setText(message);
@@ -35,6 +39,7 @@ public class EmailService {
                          "If you did not request this, please ignore this email.";
 
         SimpleMailMessage email = new SimpleMailMessage();
+        email.setFrom(fromEmail);
         email.setTo(to);
         email.setSubject(subject);
         email.setText(message);
@@ -59,6 +64,7 @@ public class EmailService {
                 "Best regards!";
 
         SimpleMailMessage email = new SimpleMailMessage();
+        email.setFrom(fromEmail);
         email.setTo(to);
         email.setSubject(subject);
         email.setText(message);
