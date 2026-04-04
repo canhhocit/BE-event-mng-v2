@@ -11,12 +11,15 @@ public class EmailService {
 
     private final JavaMailSender mailSender;
     
-    @org.springframework.beans.factory.annotation.Value("${spring.mail.username}")
+    @org.springframework.beans.factory.annotation.Value("${app.mail.from}")
     private String fromEmail;
+
+    @org.springframework.beans.factory.annotation.Value("${app.backend.url}")
+    private String backendUrl;
 
     public void sendVerificationEmail(String to, String token) {
         String subject = "[Event Manager] Xác thực Email - Email Verification";
-        String verificationUrl = "http://localhost:8080/event-mng/auth/verify?token=" + token;
+        String verificationUrl = backendUrl + "/auth/verify?token=" + token;
         String message = "Vui lòng nhấn vào liên kết bên dưới để xác thực email của bạn:\n" + verificationUrl + "\n\n" +
                          "--------------------------------------------------\n" +
                          "Please click the link below to verify your email:\n" + verificationUrl;

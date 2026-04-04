@@ -60,6 +60,10 @@ public class AuthenticationService {
     @Value("${application.security.jwt.refresh-expiration}")
     protected long REFRESHABLE_DURATION;
 
+    @NonFinal
+    @Value("${app.frontend.url}")
+    String frontendUrl;
+
     // login
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         var user = userRepository.findByUsername(request.getUsername())
@@ -149,7 +153,7 @@ public class AuthenticationService {
         user.setVerificationToken(null);
         userRepository.save(user);
 
-        return "Email đã được xác thực thành công. Vui lòng quay lại ứng dụng để đăng nhập: http://localhost:5173";
+        return "Email đã được xác thực thành công. Vui lòng quay lại ứng dụng để đăng nhập: " + frontendUrl;
     }
 
     public String forgotPassword(com.sa.event_mng.dto.request.ForgotPasswordRequest request) {

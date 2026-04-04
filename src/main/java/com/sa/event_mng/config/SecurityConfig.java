@@ -50,7 +50,7 @@ public class SecurityConfig {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration config = new CorsConfiguration();
-    // config.addAllowedOrigin("http://localhost:5173");
+    config.addAllowedOrigin("https://event-mng-v2.vercel.app");
     config.addAllowedOriginPattern("*");
     config.addAllowedMethod("*");
     config.addAllowedHeader("*");

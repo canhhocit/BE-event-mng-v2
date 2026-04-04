@@ -27,6 +27,7 @@ public class OrderSeeder {
         this.userRepository = userRepository;
     }
 
+    @SuppressWarnings("deprecation")
     public void seed() {
         if (orderRepository.count() > 0) return;
 
