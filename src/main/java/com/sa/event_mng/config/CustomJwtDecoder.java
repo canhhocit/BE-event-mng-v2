@@ -33,12 +33,17 @@ public class CustomJwtDecoder implements JwtDecoder {
     @Override
     public Jwt decode(String token) throws JwtException {
         try {
+            // Kiểm tra format JWT (phải có 3 phần tách bởi dấu chấm)
+            if (token == null || token.split("\\.").length != 3) {
+                throw new JwtException("Invalid token format");
+            }
+
             var response = authenticationService.introspect(
                     IntrospectRequest.builder().token(token).build());
 
             if (!response.isValid())
                 throw new JwtException("Token invalid");
-        } catch (JOSEException | ParseException e) {
+        } catch (JOSEException | ParseException | RuntimeException e) {
             throw new JwtException(e.getMessage());
         }
 
