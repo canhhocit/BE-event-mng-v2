@@ -34,4 +34,6 @@ public class UserResponse {
     boolean enabled;
 
     Role role;
+
+    java.time.LocalDateTime createdAt;
 }
