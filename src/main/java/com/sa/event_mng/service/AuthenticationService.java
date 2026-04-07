@@ -146,36 +146,51 @@ public class AuthenticationService {
     }
 
     public String verifyEmail(String token) {
-        User user = userRepository.findByVerificationToken(token)
-                .orElseThrow(() -> new AppException(ErrorCode.INVALID_TOKEN));
+        String commonStyle = "<style>" +
+                "  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #ebf5fb 0%, #aed6f1 100%); height: 100vh; margin: 0; display: flex; align-items: center; justify-content: center; color: #2c3e50; }" +
+                "  .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(52, 152, 219, 0.15); text-align: center; max-width: 420px; width: 90%; border: 1px solid #d6eaf8; }" +
+                "  h1 { color: #2980b9; margin-bottom: 20px; font-size: 26px; font-weight: 700; }" +
+                "  p { color: #5d6d7e; line-height: 1.7; margin-bottom: 30px; font-size: 15px; }" +
+                "  .btn { display: inline-block; background: #3498db; color: white; padding: 14px 35px; text-decoration: none; border-radius: 10px; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3); }" +
+                "  .btn:hover { transform: translateY(-2px); background: #2980b9; box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4); }" +
+                "  .icon { font-size: 60px; margin-bottom: 15px; display: block; }" +
+                "  .success-icon { color: #27ae60; }" +
+                "  .error-icon { color: #e74c3c; }" +
+                "  .error-h1 { color: #c0392b; }" +
+                "</style>";
 
-        user.setEnabled(true);
-        user.setVerificationToken(null);
-        userRepository.save(user);
+        try {
+            User user = userRepository.findByVerificationToken(token)
+                    .orElseThrow(() -> new AppException(ErrorCode.INVALID_TOKEN));
 
-        return "<html>" +
-                "<head>" +
-                "<meta charset='UTF-8'>" +
-                "<meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
-                "<style>" +
-                "  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 100vh; margin: 0; display: flex; align-items: center; justify-content: center; color: #333; }" +
-                "  .card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; max-width: 400px; width: 90%; }" +
-                "  h1 { color: #764ba2; margin-bottom: 20px; font-size: 24px; }" +
-                "  p { color: #666; line-height: 1.6; margin-bottom: 30px; }" +
-                "  .btn { display: inline-block; background: #764ba2; color: white; padding: 12px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; transition: transform 0.2s; }" +
-                "  .btn:hover { transform: scale(1.05); background: #5a3a8a; }" +
-                "  .icon { font-size: 50px; color: #4caf50; margin-bottom: 10px; }" +
-                "</style>" +
-                "</head>" +
-                "<body>" +
-                "  <div class='card'>" +
-                "    <div class='icon'>✔</div>" +
-                "    <h1>Xác thực thành công!</h1>" +
-                "    <p>Chúc mừng bạn! Tài khoản của bạn đã được kích hoạt. Bây giờ bạn có thể truy cập đầy đủ các tính năng của hệ thống.</p>" +
-                "    <a href='" + frontendUrl + "' class='btn'>Mở ứng dụng ngay</a>" +
-                "  </div>" +
-                "</body>" +
-                "</html>";
+            user.setEnabled(true);
+            user.setVerificationToken(null);
+            userRepository.save(user);
+
+            return "<html>" +
+                    "<head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'>" + commonStyle + "</head>" +
+                    "<body>" +
+                    "  <div class='card'>" +
+                    "    <span class='icon success-icon'>✓</span>" +
+                    "    <h1>Xác thực thành công!</h1>" +
+                    "    <p>Chúc mừng! Tài khoản của bạn đã được kích hoạt thành công. Bây giờ bạn có thể đăng nhập vào hệ thống.</p>" +
+                    "    <a href='" + frontendUrl + "' class='btn'>Đăng nhập ngay</a>" +
+                    "  </div>" +
+                    "</body>" +
+                    "</html>";
+        } catch (Exception e) {
+            return "<html>" +
+                    "<head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'>" + commonStyle + "</head>" +
+                    "<body>" +
+                    "  <div class='card'>" +
+                    "    <span class='icon error-icon'>✕</span>" +
+                    "    <h1 class='error-h1'>Xác thực thất bại!</h1>" +
+                    "    <p>Rất tiếc! Mã xác thực không hợp lệ hoặc đã hết hạn. Vui lòng thử đăng ký lại hoặc liên hệ Hotline: <b>0329223075</b> để được chuyên viên hỗ trợ.</p>" +
+                    "    <a href='" + frontendUrl + "/register' class='btn' style='background: #95a5a6;'>Quay lại Đăng ký</a>" +
+                    "  </div>" +
+                    "</body>" +
+                    "</html>";
+        }
     }
 
     public String forgotPassword(com.sa.event_mng.dto.request.ForgotPasswordRequest request) {
