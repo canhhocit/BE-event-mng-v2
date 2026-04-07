@@ -153,7 +153,29 @@ public class AuthenticationService {
         user.setVerificationToken(null);
         userRepository.save(user);
 
-        return "Email đã được xác thực thành công. Vui lòng quay lại ứng dụng để đăng nhập: " + frontendUrl;
+        return "<html>" +
+                "<head>" +
+                "<meta charset='UTF-8'>" +
+                "<meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
+                "<style>" +
+                "  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 100vh; margin: 0; display: flex; align-items: center; justify-content: center; color: #333; }" +
+                "  .card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; max-width: 400px; width: 90%; }" +
+                "  h1 { color: #764ba2; margin-bottom: 20px; font-size: 24px; }" +
+                "  p { color: #666; line-height: 1.6; margin-bottom: 30px; }" +
+                "  .btn { display: inline-block; background: #764ba2; color: white; padding: 12px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; transition: transform 0.2s; }" +
+                "  .btn:hover { transform: scale(1.05); background: #5a3a8a; }" +
+                "  .icon { font-size: 50px; color: #4caf50; margin-bottom: 10px; }" +
+                "</style>" +
+                "</head>" +
+                "<body>" +
+                "  <div class='card'>" +
+                "    <div class='icon'>✔</div>" +
+                "    <h1>Xác thực thành công!</h1>" +
+                "    <p>Chúc mừng bạn! Tài khoản của bạn đã được kích hoạt. Bây giờ bạn có thể truy cập đầy đủ các tính năng của hệ thống.</p>" +
+                "    <a href='" + frontendUrl + "' class='btn'>Mở ứng dụng ngay</a>" +
+                "  </div>" +
+                "</body>" +
+                "</html>";
     }
 
     public String forgotPassword(com.sa.event_mng.dto.request.ForgotPasswordRequest request) {

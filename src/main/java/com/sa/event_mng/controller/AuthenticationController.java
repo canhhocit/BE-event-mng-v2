@@ -40,7 +40,7 @@ public class AuthenticationController {
     }
 
     @Operation(summary = "Xác thực Email")
-    @GetMapping(value = "/verify", produces = "text/plain;charset=UTF-8")
+    @GetMapping(value = "/verify", produces = "text/html;charset=UTF-8")
     public String verifyEmail(@RequestParam String token) {
         return authenticationService.verifyEmail(token);
     }
