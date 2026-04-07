@@ -19,6 +19,7 @@ public interface UserMapper {
     @Mapping(target = "verificationToken", ignore = true)
     User toUser(UserCreateRequest request);
 
+    @Mapping(target = "createdAt", source = "createdAt")
     UserResponse toUserResponse(User user);
 
     @Mapping(target = "id", ignore = true)

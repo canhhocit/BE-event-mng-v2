@@ -35,5 +35,6 @@ public class UserResponse {
 
     Role role;
 
+    @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     java.time.LocalDateTime createdAt;
 }
